@@ -1,30 +1,43 @@
-const a = () => {};
+const {
+  registerUser,
+  loginUser,
+  getAllUsers,
+  getOwnProfile,
+  updateOwnProfile,
+} = require('./usersHandler');
+const { verifyToken } = require('../../utils/auth');
 
 const routes = [
   {
     method: 'POST',
     path: '/register',
-    handler: a,
+    handler: registerUser,
   },
   {
-    method: 'GET',
+    method: 'POST',
     path: '/login',
-    handler: a,
+    handler: loginUser,
   },
   {
     method: 'GET',
     path: '/users',
-    handler: a,
+    handler: getAllUsers,
   },
   {
     method: 'GET',
     path: '/users/me',
-    handler: a,
+    handler: getOwnProfile,
+    options: {
+      pre: [{ method: verifyToken }],
+    },
   },
   {
     method: 'PUT',
     path: '/users/me/edit',
-    handler: a,
+    handler: updateOwnProfile,
+    options: {
+      pre: [{ method: verifyToken }],
+    },
   },
 ];
 
