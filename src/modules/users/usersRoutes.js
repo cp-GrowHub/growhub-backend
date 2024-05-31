@@ -3,7 +3,7 @@ const a = () => {};
 const routes = [
   {
     method: 'POST',
-    path: '/regsiter',
+    path: '/register',
     handler: a,
   },
   {
