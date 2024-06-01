@@ -5,9 +5,8 @@ const goals = require('./goalsModel');
 const createGoal = (request, h) => {
   const userId = request.auth.credentials.id;
   const id = nanoid(16);
-  const { name, finished = false } = request.payload;
-  let { deadline } = request.payload;
-  deadline = new Date(deadline).toISOString();
+  const finished = false;
+  const { name, deadline } = request.payload;
 
   if (!name) {
     const response = h.response({
@@ -19,10 +18,21 @@ const createGoal = (request, h) => {
     return response;
   }
 
+  const formattedDeadline = new Date(deadline).toISOString();
+  if (Number.isNaN(Date.parse(formattedDeadline))) {
+    const response = h.response({
+      status: 'fail',
+      message: 'Invalid deadline date',
+    });
+
+    response.code(400);
+    return response;
+  }
+
   const newGoal = {
     id,
     name,
-    deadline,
+    deadline: formattedDeadline,
     finished,
     ownerId: userId,
   };
