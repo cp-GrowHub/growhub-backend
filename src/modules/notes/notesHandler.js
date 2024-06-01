@@ -1,4 +1,4 @@
-const nanoid = require('nanoid');
+const { nanoid } = require('nanoid');
 const notes = require('./notesModel');
 
 // TODO: getNotesByUser
