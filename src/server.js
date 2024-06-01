@@ -16,6 +16,12 @@ const init = async () => {
 
   server.route(routes);
 
+  // Event handler for errors on the socket
+  server.listener.on('error', (err, socket) => {
+    console.error('Socket error:', err);
+    socket.destroy();
+  });
+
   await server.start();
   console.log(`Server berjalan pada ${server.info.uri}`);
 };
