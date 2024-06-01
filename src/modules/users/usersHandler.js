@@ -15,7 +15,7 @@ const registerUser = async (request, h) => {
       message: 'Email sudah digunakan',
     });
 
-    response.code('400');
+    response.code(400);
     return response;
   }
 
