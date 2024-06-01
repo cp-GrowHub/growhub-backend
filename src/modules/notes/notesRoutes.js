@@ -1,12 +1,18 @@
 const { verifyToken } = require('../../utils/auth');
 
-const placeholder = () => {};
+const {
+  getNotesByUser,
+  createNote,
+  getDetailNote,
+  editNote,
+  deleteNote,
+} = require('./notesHandler');
 
 const routes = [
   {
     method: 'GET', // getNotesByUser
     path: '/notes',
-    handler: placeholder,
+    handler: getNotesByUser,
     options: {
       pre: [{ method: verifyToken }],
     },
@@ -14,7 +20,7 @@ const routes = [
   {
     method: 'POST', // createNote
     path: '/notes',
-    handler: placeholder,
+    handler: createNote,
     options: {
       pre: [{ method: verifyToken }],
     },
@@ -22,20 +28,20 @@ const routes = [
   {
     method: 'GET', // getDetailNote
     path: '/notes/{noteId}',
-    handler: placeholder,
+    handler: getDetailNote,
   },
   {
     method: 'PUT', // editNote
     path: '/notes/{noteId}/edit',
-    handler: placeholder,
+    handler: editNote,
     options: {
       pre: [{ method: verifyToken }],
     },
   },
   {
-    method: 'DELETE',
+    method: 'DELETE', // deleteNote
     path: '/notes/{noteId}',
-    handler: placeholder,
+    handler: deleteNote,
     options: {
       pre: [{ method: verifyToken }],
     },
