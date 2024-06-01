@@ -19,16 +19,16 @@ const routes = [
     },
   },
   {
-    method: '',
-    path: '/',
+    method: 'PUT',
+    path: '/goals/{goalId}',
     handler: placeholder, // updateGoal
     option: {
       pre: [{ method: verifyToken }],
     },
   },
   {
-    method: '',
-    path: '/',
+    method: 'DELETE',
+    path: '/goals/{goalId}',
     handler: placeholder, // deleteGoal
     option: {
       pre: [{ method: verifyToken }],
