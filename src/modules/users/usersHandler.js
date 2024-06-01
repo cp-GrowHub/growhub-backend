@@ -60,10 +60,11 @@ const loginUser = async (request, h) => {
   if (!user) {
     const response = h.response({
       status: 'fail',
-      message: 'Email tidak ditemukan',
+      message: 'Invalid email',
     });
 
     response.code(404);
+    return response;
   }
 
   // check password
@@ -71,7 +72,7 @@ const loginUser = async (request, h) => {
   if (!isMatch) {
     const response = h.response({
       status: 'fail',
-      message: 'Password salah',
+      message: 'Invalid Password',
     });
 
     response.code(404);
