@@ -1,8 +1,7 @@
 const { nanoid } = require('nanoid');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const users = require('./usersModel');
-const { secretKey } = require('../../config');
+const generateToken = require('../../utils/generateToken');
 
 // TODO: registerUser
 const registerUser = async (request, h) => {
@@ -80,7 +79,7 @@ const loginUser = async (request, h) => {
   }
 
   // generate JWT
-  const token = jwt.sign({ id: user.id }, secretKey, { algorithm: 'HS256' });
+  const token = generateToken(user);
 
   const response = h.response({
     status: 'success',
