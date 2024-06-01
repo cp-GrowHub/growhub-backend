@@ -265,6 +265,34 @@ const downvoteDiscussion = (request, h) => {
   return response;
 };
 
+// TODO: neutralizeDiscussionVote
+const neutralizeDiscussionVote = (request, h) => {
+  const userId = request.auth.credentials.id;
+  const { discussionId } = request.params;
+
+  const discussion = discussions.find((d) => d.id === discussionId);
+  if (!discussion) {
+    const response = h.response({
+      status: 'fail',
+      message: 'Discussion not found',
+    });
+
+    response.code(404);
+    return response;
+  }
+
+  discussion.upVotes = discussion.upVotes.filter((id) => id !== userId);
+  discussion.downVotes = discussion.downVotes.filter((id) => id !== userId);
+
+  const response = h.response({
+    status: 'success',
+    message: 'Discussion vote neutralized successfully',
+  });
+
+  response.code(200);
+  return response;
+};
+
 // TODO: upvoteComment
 const upvoteComment = (request, h) => {
   const userId = request.auth.credentials.id;
@@ -345,6 +373,45 @@ const downvoteComment = (request, h) => {
   return response;
 };
 
+// TODO: neutralizeCommentVote
+const neutralizeCommentVote = (request, h) => {
+  const userId = request.auth.credentials.id;
+  const { discussionId, commentId } = request.params;
+
+  const discussion = discussions.find((d) => d.id === discussionId);
+  if (!discussion) {
+    const response = h.response({
+      status: 'fail',
+      message: 'Discussion not found',
+    });
+
+    response.code(404);
+    return response;
+  }
+
+  const comment = discussion.comments.find((c) => c.id === commentId);
+  if (!comment) {
+    const response = h.response({
+      status: 'fail',
+      message: 'Comment not found',
+    });
+
+    response.code(404);
+    return response;
+  }
+
+  comment.upVotes = comment.upVotes.filter((id) => id !== userId);
+  comment.downVotes = comment.downVotes.filter((id) => id !== userId);
+
+  const response = h.response({
+    status: 'success',
+    message: 'Comment vote neutralized successfully',
+  });
+
+  response.code(200);
+  return response;
+};
+
 module.exports = {
   getDiscussions,
   createDiscussion,
@@ -354,6 +421,8 @@ module.exports = {
   deleteComment,
   upvoteDiscussion,
   downvoteDiscussion,
+  neutralizeDiscussionVote,
   upvoteComment,
   downvoteComment,
+  neutralizeCommentVote,
 };

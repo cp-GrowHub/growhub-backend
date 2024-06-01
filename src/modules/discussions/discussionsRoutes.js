@@ -7,8 +7,10 @@ const {
   deleteComment,
   upvoteDiscussion,
   downvoteDiscussion,
+  neutralizeDiscussionVote,
   upvoteComment,
   downvoteComment,
+  neutralizeCommentVote,
 } = require('./discussionsHandler');
 const { verifyToken } = require('../../utils/auth');
 
@@ -73,6 +75,14 @@ const routes = [
   },
   {
     method: 'POST',
+    path: '/discussions/{discussionId}/neutral-vote',
+    handler: neutralizeDiscussionVote,
+    options: {
+      pre: [{ method: verifyToken }],
+    },
+  },
+  {
+    method: 'POST',
     path: '/discussions/{discussionId}/comments/{commentId}/upvote',
     handler: upvoteComment,
     options: {
@@ -83,6 +93,14 @@ const routes = [
     method: 'POST',
     path: '/discussions/{discussionId}/comments/{commentId}/downvote',
     handler: downvoteComment,
+    options: {
+      pre: [{ method: verifyToken }],
+    },
+  },
+  {
+    method: 'POST',
+    path: '/discussions/{discussionId}/comments/{commentId}/neutral-vote',
+    handler: neutralizeCommentVote,
     options: {
       pre: [{ method: verifyToken }],
     },
