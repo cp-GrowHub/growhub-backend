@@ -99,6 +99,9 @@ const updateGoal = (request, h) => {
   const response = h.response({
     status: 'success',
     message: 'Goal updated successfully',
+    data: {
+      goal,
+    },
   });
 
   response.code(200);
