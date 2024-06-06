@@ -62,7 +62,7 @@ const getTodosByUser = (request, h) => {
 const updateTodo = (request, h) => {
   const userId = request.auth.credentials.id;
   const { todoId } = request.params;
-  const { highPriority, priority, finished } = request.payload;
+  const { finished } = request.payload;
 
   const todo = todos.find((t) => t.id === todoId && t.ownerId === userId);
   if (!todo) {
@@ -75,19 +75,6 @@ const updateTodo = (request, h) => {
     return response;
   }
 
-  // mengecek apakah keduanya di input true
-  if (highPriority && priority) {
-    const response = h.response({
-      status: 'fail',
-      message: 'Only one of highPriority or priority can be true',
-    });
-
-    response.code(400);
-    return response;
-  }
-
-  if (highPriority !== undefined) todo.highPriority = highPriority;
-  if (priority !== undefined) todo.priority = priority;
   if (finished !== undefined) todo.finished = finished;
 
   const response = h.response({
