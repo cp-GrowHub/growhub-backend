@@ -19,6 +19,17 @@ const createTodo = (request, h) => {
     return response;
   }
 
+  // Memastikan bahwa nama tugas tidak kosong
+  if (!name || name.trim() === '') {
+    const response = h.response({
+      status: 'fail',
+      message: 'Task name cannot be empty',
+    });
+
+    response.code(400);
+    return response;
+  }
+
   const newTodo = {
     id,
     name,
