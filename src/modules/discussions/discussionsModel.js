@@ -127,7 +127,7 @@ const discussions = [
     comments: [
       {
         id: 'comment-9',
-        content: 'Meditasi pagi hari membuat hari lebih tenang dan fokus.',
+        content: 'Meditasi pagi hari membuat hari lebih tenang dan fokus!',
         createdAt: '2023-05-16T06:15:00.000Z',
         ownerId: 'users-2',
         upVotes: [],
