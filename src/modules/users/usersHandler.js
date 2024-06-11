@@ -174,15 +174,20 @@ const updateOwnProfile = (request, h) => {
     user.lastName = lastName;
   }
 
+  if (firstName !== undefined || lastName !== undefined) {
+    const alias = `${firstName.charAt(0)}${lastName.charAt(0)}`;
+    const updatedAvatar = `https://ui-avatars.com/api/?name=${alias}&background=random`;
+
+    user.avatar = updatedAvatar;
+  }
+
   if (bio !== undefined) {
     user.bio = bio;
   }
 
   if (email !== undefined) {
     // check email
-    const existingUser = users.find(
-      (u) => u.email === email && u.id !== userId,
-    );
+    const existingUser = users.find((u) => u.email === email && u.id !== userId);
 
     if (existingUser) {
       const response = h.response({
