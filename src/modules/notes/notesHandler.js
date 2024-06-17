@@ -27,7 +27,7 @@ const createNote = (request, h) => {
 
   if (!title || !body) {
     const response = h.response({
-      status: 'success',
+      status: 'fail',
       message: 'Title and body cannot be empty',
     });
 
